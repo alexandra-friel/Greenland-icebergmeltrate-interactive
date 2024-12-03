@@ -23,4 +23,4 @@ The shapefiles are then divided into four groups based on area, simplifying the 
 Please note: Prior to user input for site name and dates, there may be an error: "area_df is not defined" - This will be resolved once user input is complete. 
 
 
-<span style="color:black; background-color:yellow;">Black text on a yellow background</span>
+
