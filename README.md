@@ -21,3 +21,6 @@ The plots will automatically adjust the axis boundaries based on the largest ice
 The shapefiles are then divided into four groups based on area, simplifying the identification of patterns in shape and size. Each group is displayed in its dedicated subplot, with overlapping shapes displayed  in low opacity. This will hopefully expose the trends and variations across groups while preserving individual details. 
 
 Please note: Prior to user input for site name and dates, there may be an error: "area_df is not defined" - This will be resolved once user input is complete. 
+
+
+<span style="color:black; background-color:yellow;">Black text on a yellow background</span>
