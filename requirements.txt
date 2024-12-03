@@ -1,3 +1,14 @@
-streamlit as st
-geopandas as gpd
-matplotlib as plt
+streamlit
+geopandas
+pandas
+matplotlib
+pandas
+folium
+streamlit_foliumstreamlit 
+numpy
+contextily
+zipfile
+os
+glob
+graphviz
+warnings
