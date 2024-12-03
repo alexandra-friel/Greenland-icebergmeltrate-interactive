@@ -1,4 +1,4 @@
-🧊An Iceberg Catalog for Analysis of Greenland Environments: ICE-AGE
+# 🧊An Iceberg Catalog for Analysis of Greenland Environments: ICE-AGE
 
 ### How to run it on your own machine
 
