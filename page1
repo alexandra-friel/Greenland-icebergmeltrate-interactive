@@ -48,7 +48,8 @@ st.sidebar.title("Customize Map Appearance")
 map_style = st.sidebar.selectbox(
     "Select Map Style", 
     options=["CartoDB positron", "CartoDB dark_matter"],
-    index=0  # Default style: CartoDB positron
+    index=0,  # Default style: CartoDB positron
+    key="map_style_selectbox"  # Add unique key
 )
 
 
@@ -60,65 +61,6 @@ st.markdown("This application will allow you to visualize manually delineated ic
 st.info("🏔️Data source: ")
 
 
-#CUSTOMIZE GREENLAND MAP HERE: 
-st.title("🗺️ Map of Greenland with selected study sites:")
-csv_file_path = "/workspaces/Greenland-icebergmeltrate-interactive/Glacier-Locations.csv"
-natural_earth_path = "/workspaces/Greenland-icebergmeltrate-interactive/ne_110m_admin_0_countries.zip"
-
-def create_interactive_map(glacier_sites, map_style):
-    # Load Natural Earth dataset
-    world = gpd.read_file(natural_earth_path)
-    greenland = world[world['NAME'] == 'Greenland']
-
-    # Convert Greenland to GeoJSON for Folium
-    greenland_geojson = greenland.to_crs("EPSG:4326").__geo_interface__
-    m = folium.Map(location=[72, -40], zoom_start=4, tiles=map_style)  # Use the selected map style
-
-    # Greenland shapefile
-    folium.GeoJson(
-        greenland_geojson,
-        name="Greenland",
-        style_function=lambda x: {"fillColor": "#05faac", "color": "black", "weight": 1.0},
-    ).add_to(m)
-
-    # Colors for specific regions
-    region_colors = {
-        'SE': 'red', 
-        'CE': 'orange', 
-        'CW': 'yellow', 
-        'NW': 'green', 
-        'NE': 'lime', 
-        'NO': 'blue', 
-        'SW': 'purple' 
-    }
-
-    # Add glacier sites as markers
-    for _, site in glacier_sites.iterrows():
-        region = site['Region'] 
-        color = region_colors.get(region, 'red')  
-
-        folium.Marker(
-            location=[site['LAT'], site['LON']],
-            popup=f"Official Name: {site['Official_n']}",
-            icon=folium.Icon(color=color, icon="info-sign"),
-        ).add_to(m)
-
-    return m
-
-
-try:
-    glacier_sites = pd.read_csv(csv_file_path)
-    required_columns = {'LAT', 'LON', 'Official_n', 'Glacier_ID', 'Region'}
-    if not required_columns.issubset(glacier_sites.columns):
-        st.error(f"The uploaded file must contain the following columns: {', '.join(required_columns)}")
-    else:
-        interactive_map = create_interactive_map(glacier_sites, map_style)  # Pass the selected map style
-        st_folium(interactive_map, width=800, height=600)
-except Exception as e:
-    st.error(f"An error occurred while loading the CSV file: {e}")
-
-
-
 #CUSTOMIZE THE ICEBERG SHAPEFILE VIEWER HERE: 
 st.title("🔍👀Iceberg Shapefile Viewer:")
 st.markdown('⏳Note: The Iceberg Shape Comparison chart may take a moment to load!')
@@ -128,12 +70,12 @@ base_path = "Iceberg-shapefiles"
 if os.path.exists(base_path):
     site_names = [name for name in os.listdir(base_path) if os.path.isdir(os.path.join(base_path, name))]
 
-    site_name = st.selectbox("Select Site Name", site_names)
+    site_name = st.selectbox("Select Site Name", site_names, key="site_name_selectbox")  # Add unique key
 else:
     st.error(f"Base path '{base_path}' does not exist. Please check your folder structure.")
 
-early_date = st.text_input("Enter the earlier date (YYYYMMDD):")
-late_date = st.text_input("Enter the later date (YYYYMMDD):")
+early_date = st.text_input("Enter the earlier date (YYYYMMDD):", key="early_date_input")  # Add unique key
+late_date = st.text_input("Enter the later date (YYYYMMDD):", key="late_date_input")  # Add unique key
 
 if site_name and early_date and late_date:
     date_range_folder = f"{early_date}-{late_date}"
@@ -257,29 +199,22 @@ for i, quartile in enumerate(["Q1", "Q2", "Q3", "Q4"]):
     for shapefile in quartile_files:
         shapefile_path = os.path.join(target_folder, shapefile)
         gdf = gpd.read_file(shapefile_path)
-        
+
         if gdf.crs is None:
             gdf = gdf.set_crs('EPSG:3413')
         gdf = gdf.to_crs('EPSG:3413')
         
-        if not gdf.empty:
-            # Calculate dominant angle
-            dominant_angle = calculate_dominant_angle(gdf)
-            
-            # Rotate geometry by -dominant_angle to align horizontally
-            gdf["geometry"] = gdf["geometry"].rotate(-dominant_angle, origin="center")
-            
-            # Translate to origin for overlay
-            overall_bounds = gdf.total_bounds
-            gdf["geometry"] = gdf["geometry"].apply(lambda geom: translate(geom, -overall_bounds[0], -overall_bounds[1]))
-            
-            # Plot geometry
-            gdf.plot(ax=ax, color=quartile_colors[quartile], alpha=quartile_opacity[quartile], edgecolor="black")
+        color = quartile_colors[quartile]
+        opacity = quartile_opacity[quartile]
+
+        overall_bounds = gdf.total_bounds
+        gdf['geometry'] = gdf['geometry'].apply(lambda geom: translate(geom, -overall_bounds[0], -overall_bounds[1]))
+
+        gdf.plot(ax=ax, color=color, edgecolor='black', alpha=opacity, linewidth=2)
     
     ax.set_xlim(0, max_width)
     ax.set_ylim(0, max_height)
     ax.set_xlabel("Width (m)")
     ax.set_ylabel("Height (m)")
-    ax.grid(visible=True, linestyle='--', linewidth=0.5)
 
 st.pyplot(fig)
