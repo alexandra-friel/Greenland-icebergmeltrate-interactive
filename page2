@@ -1,0 +1,90 @@
+import streamlit as st
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import os
+import warnings
+
+#CUSTOMIZE FUN APP COLORS HERE: 
+st.markdown(
+    """
+    <style>
+    /* Main page background color */
+    .stApp {
+        background-color: #5c5f61;
+    }
+    /* Sidebar background color */
+    [data-testid="stSidebar"] {
+        background-color: #708899;
+    }
+    /* Title text color */
+    .stTitle {
+        color: #000000;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+warnings.filterwarnings("ignore")
+
+st.title('📊Iceberg Statistics Dashboard')
+st.info('🧊Data source: (To be added! Hang tight!) ')
+
+
+#st.markdown("""
+            #Description of Iceberg Meltrate Information: 
+           # - 
+           # - 
+           # - 
+#""")
+
+# Base directory where data is stored
+base_path = "/workspaces/rotate-icebergs/Melt-rates"
+
+# Dropdown for site name
+st.sidebar.header("Inputs")
+site_name = st.sidebar.selectbox("Select Site Name:", ["KOG", "SEK", "ASG"])
+
+early_date = st.sidebar.text_input("Enter Early Date (YYYYMMDD):", "20170515") #20170515
+later_date = st.sidebar.text_input("Enter Later Date (YYYYMMDD):", "20170611") #20170611
+
+#st.sidebar.image("Opa.jpg", caption = 'my child for a placeholder')
+#st.sidebar.image("Carlos.png", caption = 'second child for a placeholder')
+st.sidebar.image("Ice-bridge-streamlit.png", caption = "Surprising iceberg shapes drift in the coastal waters near Ilulissat, Greenland. Credit: Twila Moon, NSIDC")
+st.sidebar.image("Icebergs-streamlit.png",caption = "An iceberg drifts in the sea off the coast of Ilulissat, Greenland. Icebergs form when chunks of ice calve, or break off, from glaciers, ice shelves, or a larger iceberg. The North Atlantic and the cold waters surrounding Antarctica are home to most of the icebergs on Earth. Credit: Twila Moon, NSIDC")
+st.sidebar.image("Sunset-icebergs-streamlit.png", caption = "Icebergs crowd the waters along the northwestern Greenland coast. Instruments deployed in the region help researchers to better understand how narwhal whales use the glacial fjord environment. Credit: Twila Moon, NSIDC")
+
+
+folder_path = os.path.join(base_path, site_name, f"{early_date}-{later_date}")
+csv_file_path = os.path.join(folder_path, f"{site_name}_{early_date}-{later_date}_iceberg_meltinfo.csv")
+
+# Check if the file exists
+if os.path.exists(csv_file_path):
+    st.success("🎉CSV file found!🎉")
+    # Load the CSV file
+    df = pd.read_csv(csv_file_path)
+    st.write("### Iceberg Meltrate Information:")
+    st.dataframe(df)
+
+    # Drop unwanted columns
+    unwanted_columns = ['X_i', 'Y_i','TimeSeparation','VerticalAdjustment_i','VerticalAdjustment_f','Density_i','Density_f']  # Replace with actual column names
+    df = df.drop(columns=[col for col in unwanted_columns if col in df.columns])
+
+    # Display the correlogram
+    st.write("### Correlogram of Iceberg Features")
+    fig, ax = plt.subplots(figsize=(10, 8))
+    sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap="coolwarm", ax=ax)
+    st.pyplot(fig)
+else:
+    st.error("🚫CSV file not found. Please check your inputs!🚫")
+
+st.info('We will add ocean data to this chart! Just getting the framework down. :-) Hang tight!')
+
+
+st.title("🥳Acknowledgements:")
+st.markdown("""
+            Our group is very committed to (mission statement )  
+            Special thanks to: 
+            - All you cool cats! (Fill out later)
+""")
