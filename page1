@@ -24,7 +24,7 @@ st.markdown(
     }
     /* Sidebar background color */
     [data-testid="stSidebar"] {
-        background-color: #2e3a5c;
+        background-color: #082047;
     }
     /* Title text color */
     .stTitle {
@@ -283,11 +283,3 @@ for i, quartile in enumerate(["Q1", "Q2", "Q3", "Q4"]):
     ax.grid(visible=True, linestyle='--', linewidth=0.5)
 
 st.pyplot(fig)
-
-
-st.title("🥳Acknowledgements:")
-st.markdown("""
-            Our group is very committed to (mission statement )  
-            Special thanks to: 
-            - All you cool cats! (Fill out later)
-""")
