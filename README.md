@@ -18,11 +18,8 @@
    ```
    $ (link goes here when it's ready!)
    ```
-4. Be sure to have an account with Github when you access the app!
 
-
-
-   
+Be sure to have a Github account when you access this application! 
 
 This Streamlit app prioritizes ease of use,  featuring an intuitive interface for selecting and analyzing iceberg shapefiles. Users can effortlessly view key metadata (I'd like to eventually add these shapefiles on a map for spatial context) all within just a few clicks. To get started, the users will select a site name from a dropdown menu and manually enter pre-determined dates in the "Earlier Date" and "Later Date" slots. A link to all available date pairings ensures easy reference. Once the user inputs their desired location and dates, the iceberg shapefiles will be displayed.
 
