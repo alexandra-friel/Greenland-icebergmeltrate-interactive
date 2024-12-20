@@ -20,7 +20,7 @@ st.markdown(
     <style>
     /* Main page background color */
     .stApp {
-        background-color: #2d526e;
+        background-color: #2f3338;
     }
     /* Sidebar background color */
     [data-testid="stSidebar"] {
@@ -38,33 +38,24 @@ warnings.filterwarnings("ignore")
 
 
 ##CUSTOMIZE SIDEBAR HERE: 
-#st.sidebar.header('Sidebar goes here')
-#st.sidebar.markdown('All relevant information goes here!')
-st.sidebar.image("Swirly-iceberg-streamlit.png", caption = "A sculpted Iceberg drifts off of Baffin Island, Nunavut. Icebergs form when chunks of ice calve, or break off, from glaciers, ice shelves, or a larger iceberg. The North Atlantic and the cold waters surrounding Antarctica are home to most of the icebergs on Earth. Credit: Shari Fox, NSIDC")
-st.sidebar.image("Beautiful-icebergs-streamlit.png", caption = "Credit: Twila Moon, NSIDC")
-#st.sidebar.image('Opa.jpg', caption = '🧡My child for a placeholder🧡')
-
-st.sidebar.title("Customize Map Appearance")
-map_style = st.sidebar.selectbox(
-    "Select Map Style", 
-    options=["CartoDB positron", "CartoDB dark_matter"],
-    index=0,  # Default style: CartoDB positron
-    key="map_style_selectbox"  # Add unique key
-)
+st.sidebar.image("Iceberg-images/Swirly-iceberg-streamlit.png", caption = "A sculpted Iceberg drifts off of Baffin Island, Nunavut. Icebergs form when chunks of ice calve, or break off, from glaciers, ice shelves, or a larger iceberg. The North Atlantic and the cold waters surrounding Antarctica are home to most of the icebergs on Earth. Credit: Shari Fox, NSIDC")
+st.sidebar.image("Iceberg-images/Beautiful-icebergs-streamlit.png", caption = "Credit: Twila Moon, NSIDC")
+#st.sidebar.image('Opal.jpg', caption = '🧡My child for a placeholder🧡')
 
 
 #CUSTOMIZE TITLE FOR APP HERE: 
-st.title('🧊An Iceberg Catalog for Analysis of Greenland Environments: ICE-AGE')
+st.title("🔍👀Iceberg Shapefile Viewer:")
 st.markdown('')
-st.title("❄️Purpose:")
-st.markdown("This application will allow you to visualize manually delineated icebergs from Greenlandic fjords. ")
-st.info("🏔️Data source: ")
+st.markdown("❄️This page will allow you to explore iceberg varying iceberg shapes and sizes using shapefiles. ")
+st.markdown("The plots will automatically adjust the axis boundaries based on the largest iceberg, which ensures proper scaling for comparative analysis. The icebergs are color-coded by date, with orange representing the earlier date and green representing the later date.")
+st.markdown("The shapefiles are then divided into four groups based on area, simplifying the identification of patterns in shape and size. Each group is displayed in its dedicated subplot, with overlapping shapes displayed  in low opacity. This will hopefully expose the trends and variations across groups while preserving individual details. ")
+
 
 
 #CUSTOMIZE THE ICEBERG SHAPEFILE VIEWER HERE: 
-st.title("🔍👀Iceberg Shapefile Viewer:")
-st.markdown('⏳Note: The Iceberg Shape Comparison chart may take a moment to load!')
 st.info('Click here for the [Fjord Abbreviation List & Paired Dates](https://docs.google.com/spreadsheets/d/1kCcKqf717kK3_Xx-GDe0f61jhlUpZ5n6BN1qtiw7S4w/edit?gid=0#gid=0)')
+st.markdown('⏳Note: The error area_df is not defined will be resolved once your input is complete!')
+
 
 base_path = "Iceberg-shapefiles"
 if os.path.exists(base_path):
@@ -218,3 +209,4 @@ for i, quartile in enumerate(["Q1", "Q2", "Q3", "Q4"]):
     ax.set_ylabel("Height (m)")
 
 st.pyplot(fig)
+
