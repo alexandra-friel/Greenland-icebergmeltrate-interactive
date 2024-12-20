@@ -19,6 +19,13 @@
    $ (link goes here when it's ready!)
    ```
 
+
+Authors: Twila A. Moon, Dustin Carroll, Ellyn Enderlin, Aman KC, Alexandra Friel
+Institutions: Boise State Univeristy, University of Colorado Boulder, San Jose State University, National Snow and Ice Data Center, Cooperative Institute for Research in Environmental Sciences, & Jet Propulsion Laboratory California Institute of Technology
+Data Generation: Alexandra Friel, Isabella Welk, Alex Iturriria, Madelyn Woods
+Data Visualization & Streamlit Application Development: Alexandra Friel
+
+
 Be sure to have a Github account when you access this application! 
 
 This Streamlit app prioritizes ease of use,  featuring an intuitive interface for selecting and analyzing iceberg shapefiles. Users can effortlessly view key metadata (I'd like to eventually add these shapefiles on a map for spatial context) all within just a few clicks. To get started, the users will select a site name from a dropdown menu and manually enter pre-determined dates in the "Earlier Date" and "Later Date" slots. A link to all available date pairings ensures easy reference. Once the user inputs their desired location and dates, the iceberg shapefiles will be displayed.
