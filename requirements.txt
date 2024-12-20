@@ -12,3 +12,5 @@ os
 glob
 graphviz
 warnings
+seaborn
+plotly.express
