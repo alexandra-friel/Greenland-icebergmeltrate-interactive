@@ -1,3 +1,5 @@
+#BE SURE TO ADD ANY LIBRARIES YOU USE TO THE REQUIREMENTS.TXT FILE!
+
 streamlit
 geopandas
 pandas
@@ -14,3 +16,8 @@ graphviz
 warnings
 seaborn
 plotly.express
+io
+gmplot
+simplekml
+keyring
+yagmail

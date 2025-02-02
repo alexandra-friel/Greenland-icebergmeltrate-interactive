@@ -1,0 +1,39 @@
+fid,ID,LAT,LON,Official_n,Glacier_ID,Corresponding icebergs,Amount of icebergs that align with OMG data:,OMG points that best align with iceberg matches:,,Total date pairings: (Image matching),"Years represented in date pairings (e.g., 2016, 2020, 2021)"
+31,GGN0227,68.8667,-50.2833,Saqqarliup Sermia,SQS,0,0,0,,N/a,N/a
+33,GGN0250,69.808,-50.1851,Eqip Sermia,EQS,0,0,0,,N/a,N/a
+41,GGN0290,70.6333,-50.6167,Sermilik,SLK,0,0,0,,N/a,N/a
+44,GGN0299,70.8268,-50.7627,Sermeq Silarleq,SES,0,0,0,,N/a,N/a
+59,GGN0481,73.25,-55.0833,Naajarsuit Sermiat,NAS,0,0,0,,N/a,N/a
+,GGN0053,62.9052,-42.6851,Heimdal Gletsjer,HEG,3,,6,,1,2012
+84,GGN0572,76.3,-61.7666,Qeqertat Timaanni Sermeq,QTS,5,,5,,1,"2012, 2015, 12016"
+34,GGN0253,69.9009,-50.342,Kangilernata Sermia,KLS,7,,3,,3,"2013, 2014"
+40,GGN0287,70.5454,-50.4896,Sermeq Avannarleq N,SMA,12,0 - None in specified fjord,0,,3,"2013, 2014"
+23,GGN0163,66.3735,-38.3067,Helheim Gletsjer,HLG,13,,,,2,
+201,GGN0163,66.3735,-38.3067,Helheim Gletsjer,HLG,13,,3,,2,"2014, 2016, 2017, 2021"
+38,GGN0279,70.4054,-50.5364,Sermeq Kujalleq N2 (Store),SMK,15,,5,,2,"2016, 2021"
+15,GGN0095,64.35,-41.5667,Gröulv,GRA,25,,3,,5,"2013, 2014, 2019, 2020, 2021"
+54,GGN0390,72.0373,-52.6054,Salliarutsip Sermia,SAS,25,,2,,4,"2017, 2018, 2019"
+60,GGN0486,73.4784,-55.3035,Kakiffaat Sermiat,KAS,27,,5,,2,"2017, 2018"
+,,72.8908,-54.5136,Upernavik North Ice Stream,UNS,27,,9 (out of 43),,3,"2018, 2021, 2022"
+63,GGN0498,73.8317,-55.5825,Sermeq Kujalleq N3,SQK,28,,6,,3,"2017, 2018, 2021"
+45,GGN0303,70.9909,-50.9227,Perlerfiup Sermia,PES,29,,5,,3,"2012, 2013, 2014"
+45,GGN0303,70.9909,-50.9227,Perlerfiup Sermia,PES,29,,,,3,
+8,GGN0057,63.2216,-42.5455,Guldfaxe (Same as Rimfaxe),GUL,30,,4,,5,"2011, 2013, 2014"
+36,GGN0265,70.0853,-50.2468,Sermeq Avannarleq ,SRA,31,,4,,6,"2011, 2013, 2014"
+27,GGN0211,68.4557,-31.662,Frederiksborg Gletsjer,FRG,33,,3,,6,"2016, 2017, 2018, 2019, 2021"
+49,GGN0326,71.4588,-51.3101,Kangerlussuup Sermia,KPS,35,,5,,3,"2015, 2019, 2021"
+35,GGN0256,69.996,-50.1596,Sermeq Kujalleq N1,SRK,38,,4,,5,"2011, 2013, 2014"
+67,GGN0518,74.2307,-55.8275,Ikissuup Sermersua,IKS,50,,5,,4,"2011, 2015, 2016, 2017"
+52,GGN0347,71.7723,-51.4951,Kangilliup Sermia,KGS,57,,3 (out of 6),,5,"2013, 2017, 2018, 2019, 2020"
+68,GGN0529,74.4167,-55.9666,Illullip Sermia,ILS,61,,5 (out of 33),,6,"2013, 2014, 2015, 2016, 2018, 2020"
+72,GGN0542,75.3167,-57.8333,Sermersuaq,SUA,63,,3 (out of 48),,8,"2012, 2016, 2018, 2020, 2021"
+10,GGN0060,63.305,-42.3669,Rimfaxe ,RIM,68,,2 (out of 10),,6,"2011, 2013, 2014"
+83,GGN0567,76.2167,-60.9999,Rink Gletsjer N (Melville Bay),RIG,68,,3 (out of 45),,10,"2012, 2014, 2015, 2016, 2017, 2018"
+51,GGN0345,71.75,-29,Daugaard-Jensen Gletsjer,DJG,96,,4 (out of 4),,4,"2011, 2012, 2019, 2020"
+76,GGN0546,75.6195,-57.9704,Sverdrup Gletsjer,SVG,99,,1 (out of 30),,12,"2014, 2017, 2018, 2019, 2020, 2021"
+29,GGN0218,68.6746,-33.076,Kangerlussuaq Gletsjer,KSG,106,,4 (out of 7),,7,"2011, 2014, 2015, 2016, 2017, 2019, 2021"
+,,65.0544,-40.9419,Koge Bugt Glacier,KBG,116,,1 (out of 12),,9,2023
+32,GGN0235,69.1833,-49.8,Sermeq Kujalleq (Jakobshavn),SEK,166,,4 (out of 5),,11,"2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019"
+79,GGN0550,75.8248,-59.0399,Nordenskiöld Gletsjer,NOG,210,,2 (out of 48),,8,"2014, 2015, 2016, 2017, 2018, 2019, 2021"
+78,GGN0549,75.7759,-58.8283,Nansen Gletsjer,NAG,148,,2 (out of 45),,,"2012, 2013, 2014, 2015, 2016, 2017"
+,,75.9307,-59.929,Kong Oscar Glacier,KOG,,,4 (out of 57),,,"2016, 2017, 2018, 2019, 2021, 2022, 2023"

@@ -1,0 +1,128 @@
+
+
+
+
+
+
+    import streamlit as st
+import pandas as pd
+import geopandas as gpd
+import folium
+from streamlit_folium import st_folium
+import os
+import warnings
+
+# Hide all warnings
+warnings.filterwarnings("ignore")
+
+# Customize app colors
+st.markdown(
+    """
+    <style>
+    .stApp { background-color: #1a1a1a; }
+    [data-testid="stSidebar"] { background-color: #333333; }
+    .stTitle { color: #ffffff; }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+st.title("🗺️ Visualize iceberg spatial distributions")
+st.markdown("Interactively explore iceberg spatial distributions in Greenland.")
+
+# Constants
+shapefile_base_path = "/workspaces/Greenland-icebergmeltrate-interactive/Iceberg-shapefiles"
+
+# Function to load and reproject shapefile
+def load_and_reproject_shapefile(shp_path):
+    # Ensure that the .shp, .shx, .dbf, .prj files exist
+    shapefile_dir = os.path.dirname(shp_path)
+    shapefile_components = {".shp", ".shx", ".dbf", ".prj"}
+    
+    # Search for matching files in the directory
+    matching_files = {os.path.splitext(f)[0] for f in os.listdir(shapefile_dir) if any(f.endswith(ext) for ext in shapefile_components)}
+
+    if not matching_files:
+        st.error(f"No valid shapefile components found for {shp_path}.")
+        return None  # Skip if no matching files found
+    
+    # Check if all the required files are present (.shp, .shx, .dbf, .prj)
+    for prefix in matching_files:
+        required_files = [os.path.join(shapefile_dir, prefix + ext) for ext in [".shp", ".shx", ".dbf", ".prj"]]
+        if all(os.path.exists(file) for file in required_files):
+            try:
+                gdf = gpd.read_file(required_files[0])  # Load .shp file
+                if gdf.crs is None:
+                    gdf.set_crs("EPSG:3413", inplace=True)
+                gdf = gdf.to_crs("EPSG:4326")  # Reproject to EPSG:4326
+                return gdf
+            except Exception as e:
+                st.error(f"Error loading shapefile {required_files[0]}: {e}")
+                return None
+    return None  # Return None if files don't meet the requirement
+
+# Function to calculate width and height of the iceberg
+def calculate_width_height(gdf):
+    gdf = gdf.to_crs("EPSG:3413")
+    bounds = gdf.total_bounds
+    width = bounds[2] - bounds[0]
+    height = bounds[3] - bounds[1]
+    return round(width, 2), round(height, 2)
+
+# Function to create the interactive map
+def create_interactive_map(selected_sites):
+    m = folium.Map(location=[72, -40], zoom_start=5, tiles="CartoDB positron")
+
+    for site in selected_sites:
+        site_path = os.path.join(shapefile_base_path, site)
+        if not os.path.exists(site_path):
+            continue  # Skip if site not found
+
+        # List all date folders
+        date_folders = [f for f in os.listdir(site_path) if os.path.isdir(os.path.join(site_path, f))]
+        if not date_folders:
+            continue  # Skip if no date folders
+
+        for date_folder in date_folders:
+            date_path = os.path.join(site_path, date_folder)
+            shapefiles = [f for f in os.listdir(date_path) if f.endswith(".shp")]
+
+            if not shapefiles:
+                continue  # Skip if no shapefiles found
+
+            for shp in shapefiles:
+                shp_path = os.path.join(date_path, shp)
+                gdf = load_and_reproject_shapefile(shp_path)
+                if gdf is None:
+                    continue  # Skip if SHX file is missing
+
+                width, height = calculate_width_height(gdf)
+
+                # Popup content for the map
+                popup_content = f"<strong>Site:</strong> {site}<br><strong>Date:</strong> {date_folder}<br><strong>Width:</strong> {width} meters<br><strong>Height:</strong> {height} meters"
+
+                folium.GeoJson(
+                    gdf.__geo_interface__,
+                    name=f"{site} - {date_folder}",
+                    style_function=lambda x: {"color": "blue", "weight": 1},
+                    popup=folium.Popup(popup_content, max_width=300)
+                ).add_to(m)
+    return m
+
+try:
+    # Load available sites
+    sites = [f for f in os.listdir(shapefile_base_path) if os.path.isdir(os.path.join(shapefile_base_path, f))]
+    if sites:
+        selected_sites = st.sidebar.multiselect("Select Sites to Include", sites, default=sites)
+
+        # Generate the map
+        if selected_sites:
+            map_object = create_interactive_map(selected_sites)
+            st_folium(map_object, width=800, height=600)
+        else:
+            st.warning("Please select at least one site.")
+    else:
+        st.warning("No sites found in the directory.")
+        
+except Exception as e:
+    st.error(f"An error occurred: {e}")
